@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360° Image Viewer</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           background:grey;
+            margin: 0;
+            position: relative; /* Add this line */
+        }
+        #image-upload {
+		
+		cursor:pointer;
+		font-weight:bold;
+		font-size:1.2rem;
+            left: 36rem;
+    top: 36rem;
+    margin-bottom: 20px;
+    position: absolute;
+    z-index: 1;
+        }
+        #image-placeholder {
+            width: 80vw; /* Adjust the width as needed */
+            height: 80vh; /* Adjust the height as needed */
+			
+        }
+
+		html.a-fullscreen .a-canvas {
+       width: 70rem !important;
+    height: 32rem !important;
+    top: 3rem !important;
+    left: 8rem !important;
+    right: 0 !important;
+    bottom: 0 !important;
+	box-shadow:0 0 12px 0 black;
+    position: fixed !important;
+}
+.a-enter-ar-button, .a-enter-vr-button {
+    background-size: 90% 90%;
+    border: 0;
+    bottom: 0;
+    cursor: pointer;
+    min-width: 58px;
+    min-height: 34px;
+    padding-right: 0;
+    padding-top: 0;
+    position: absolute;
+    right: 6.5rem;
+    bottom: 2rem;
+    transition: background-color .05s ease;
+    -webkit-transition: background-color .05s ease;
+    z-index: 9999;
+    border-radius: 8px;
+    touch-action: manipulation;
+}
+h1{
+    font-size: 3rem;
+    position: absolute;
+    top: -35px;
+    color: white;
+}
+	/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px) {
+/* Styles */
+html.a-fullscreen .a-canvas{
+    width: 23rem !important;
+    height: 38rem !important;
+    top: 6rem !important;
+    left: 1rem !important;}
+    #image-upload {
+        left: 4rem;
+    top: 44rem;
+    }
+    .a-enter-ar-button, .a-enter-vr-button {
+
+    right: 0.5rem;
+    bottom: 8rem;
+}
+h1{
+    font-size: 2.5rem;
+    top: 0;
+}}
+
+
+
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) {
+/* Styles */
+html.a-fullscreen .a-canvas{
+    width: 62rem !important;
+    height: 74rem !important;
+    top: 5rem !important;
+    left: 1rem !important;}
+    #image-upload {
+        font-size: 2.2rem;
+        left: 20rem;
+    top: 81rem;
+    }
+    .a-enter-ar-button, .a-enter-vr-button {
+
+        right: 2.5rem;
+    bottom: 8rem;
+}
+h1{
+    font-size: 4rem;
+    
+}
+}
+
+/* Large screens ----------- */
+@media only screen 
+  and (min-width: 1824px) {
+/* Styles */
+html.a-fullscreen .a-canvas{
+    width: 79rem !important;
+    height: 49rem !important;
+    top: 7rem !important;
+    left: 2rem !important;}
+    #image-upload {
+        font-size: 3rem;
+    top: 56rem;
+    left: 26rem;
+    }
+    .a-enter-ar-button, .a-enter-vr-button {
+
+        right: 3.5rem;
+    bottom: 4rem;
+}
+h1{
+    font-size: 5rem;
+    
+}
+}
+
+    </style>
+</head>
+<body>
+    <h1>Panorama Viewer VR</h1>
+    <div style="text-align: center;">
+        <input type="file" id="image-upload" accept="image/jpeg">
+    </div>
+    <a-scene>
+        <a-sky id="image-placeholder"></a-sky>
+        
+    </a-scene>
+    <script>
+    const imageUpload = document.getElementById('image-upload');
+    const imagePlaceholder = document.getElementById('image-placeholder');
+    const defaultImageURL = "def.jpg"; 
+
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+            imagePlaceholder.setAttribute('src', event.target.result);
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            imagePlaceholder.setAttribute('src', defaultImageURL);
+        }
+    });
+</script>
+</body>
+</html>
